@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background: radial-gradient(#A46297 18%,#613659);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+.logframe{
+    max-width: 540px;
+    padding: 0 20px;
+}
+.container{
+    width:100%;
+    background: linear-gradient(#211522, #823F88 );
+    color: white;
+    border-radius: 9px;
+    padding: 30px 40px;
+    margin-top: 20%;
+    margin-bottom: 20;
+}
+.container h1{
+    font-size: 28px;
+    text-align: center;
+    margin-top: 40px;
+}
+.container p{
+    font-size: 15px;
+    margin-bottom: 45px;
+    text-align: center;
+    color: rgb(177, 175, 175);
+}
+.container .input-box{
+    position: relative;
+    width: 100%;
+    height:50px;
+    margin: 20px 0;
+}
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 71%, 0.322) 18%;
+    border: none;
+    outline: none;
+    border: 1px solid #B4369C;
+    border-radius: 40px;
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+}
+.input-box input::placeholder{
+      color: rgba(255, 255, 255, 0.699);
+}
+.input-box i{
+    position:absolute;
+    right :20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+}
+.container .forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.forgot a{
+    color: #fc5adebd;
+    text-decoration: none;
+}
+.forgot a:hover{
+    text-decoration: underline; 
+}
+.container .logbutton{
+    width: 80%;
+    height: 45px;
+    background: #DD43C0;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    margin:50px 0px 30px 16px;
+}
+@media(max-width: 535px){
+    .container{
+        padding: 20px 30px;
+        transition: 1s;
+    }
+    .container h1{
+        font-size: 20px;
+    }
+    .container p{
+
+        font-size: 13px;
+    }
+    .container .forgot{
+        font-size:13px ;
+    }
+    .input-box input::placeholder{
+        font-size: 13px;
+    }
+    .input-box i{
+        font-size:14px ;
+    }
+    .container .logbutton{
+        width: 65%;
+        height: 35px;
+        font-size: 14px;
+        margin:50px 0px 23px 13px;
+    }
+}
