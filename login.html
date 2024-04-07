@@ -1,47 +1,38 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in form</title>
-    <link rel="stylesheet" href="login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
- </head>
- <body>
-     <div class="logframe">
+    <link rel="stylesheet" href="./css/login.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <form id="loginform">
+      <div class="logframe">
         <div class="container">
-            <form action="">
-               <h1>UWICYEZA Grace</h1>
-               <p>Control panel log in</p> 
-             <div class="input-box">
-                <input type="text" placeholder="Admin" id="email">
-                <i class='bx bxs-user'></i>
-             </div>
-             <div class="input-box">
-                <input type="password" placeholder="Password" id="passcode">
-                <i class='bx bxs-key'></i>
-             </div>
-             <div class="forgot">
+          <form action="">
+            <h1>UWICYEZA Grace</h1>
+            <p>Control panel log in</p>
+            <div class="input-box">
+              <input type="text" placeholder="Admin" id="email" />
+              <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+              <input type="password" placeholder="Password" id="passcode" />
+              <i class="bx bxs-key"></i>
+            </div>
+            <div class="forgot">
               <a href="#">Forgot password?</a>
-             </div>
-           <a href=""><button class="logbutton" onclick="
-           enter()">LOG IN</button></a> 
-            </form>
-         </div>
-     </div>
-
-     <script>
-       function enter(){
-         var email = document.getElementById("email").value;
-         var passcode = document.getElementById("passcode").value;
-         if(email=="icyeza@gmail.com" && passcode=="icyeza"){
-            window.location.assign("http://127.0.0.1:5502/dashb.html");
-            alert("Welcome Uwicyeza");
-         }else{
-            alert("Wrong Credentials, try again!");
-               return;     
-            }
-         }   
-     </script>
- </body>
- </html>
+            </div>
+            <button type="submit" class="logbutton">LOG IN</button>
+          </form>
+        </div>
+      </div>
+    </form>
+    <script src="./js/login.js"></script>
+  </body>
+</html>
