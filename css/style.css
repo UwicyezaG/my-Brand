@@ -5,7 +5,6 @@
   font-family: "Inter", sans-serif;
 }
 .header {
-  min-height: 100vh;
   width: 100%;
   background-color: #613659;
   background-size: cover;
@@ -198,93 +197,117 @@ p {
 .blog {
   width: 100%;
   background-color: #261827;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 4rem;
-}
-.container {
-  background-color: #4e3650;
-  border-radius: 0.8rem;
-  flex-basis: 31%;
-  box-sizing: border-box;
-  transition: 0.5s;
-}
-.content {
-  margin: 3.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-.content h4 {
-  color: white;
-  font-size: 1.4rem;
-  font-weight: 150;
-  /* float: left; */
-}
-.blogimage img {
-  text-align: center;
-  width: 100%;
-  height: 30vh;
-  border-radius: 0.6rem;
-}
-.content h2 {
-  color: white;
-  font-weight: bold;
-  font-size: 1.6;
-}
-.feedback {
-  display: flex;
-  flex-direction: row;
-  gap: 5rem;
-}
-.like {
-  /* background-color: aqua; */
-  text-align: center;
-  margin-top: 0.8rem;
-}
-.like i {
-  color: white;
-  font-size: 30px;
-}
-.like h5 {
-  color: white;
-  padding: 0.3rem;
+  padding: 4.2rem;
 }
 
-@media (max-width: 895px) {
-  h1 {
-    font-size: 1.3rem;
+/* ============= NEW BLOG  ==========*/
+.post-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5rem;
+  margin-bottom: 5rem;
+}
+.post-thumb {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1rem solid rgb(85, 44, 85);
+}
+.post-thumb img {
+  width: 100%;
+}
+.post .post-thumb {
+  border: 0.2rem solid rgb(37, 3, 37);
+  border-radius: 8px;
+}
+
+.single-post {
+  margin: auto;
+  width: 100%;
+  border: 1px solid rgb(32, 3, 32);
+  padding: 1rem;
+}
+.single-post-container {
+  width: 100%;
+  padding: 1rem 2rem 2rem;
+  background-color: rgb(32, 2, 32);
+  color: white;
+}
+.single-post h2,
+.single-post h5 {
+  color: aliceblue;
+}
+.single-post p {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+.single-post-thumb {
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 0.1rem solid rgb(85, 44, 85);
+}
+.single-post-thumb img {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.post-profile {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+}
+.post-profile-img {
+  height: 3.2rem;
+  width: 3.2rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.post-profile button {
+  background-color: #340e36;
+  color: rgb(245, 235, 235);
+  width: auto;
+  padding: 0.3rem;
+}
+.post-profile button:hover {
+  background-color: #dd43c0;
+  color: white;
+}
+.post-profile i {
+  font-size: 1rem;
+  padding: 0rem 0.5rem;
+}
+.post-profile .faire {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .post-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
   }
-  .about h3 {
-    font-size: 1rem;
+  .single-post-container {
+    padding: 1.3rem;
+    width: 70%;
   }
-  .about p {
-    font-size: 0.8rem;
-    line-height: 1.5rem;
+}
+@media (max-width: 600px) {
+  .post-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
-  .blog {
-    flex-direction: column;
-    gap: 0.8rem;
+  .single-post-container {
+    padding: 1.3rem;
+    width: 90%;
   }
-  .skills {
-    flex-direction: column;
-    gap: 0.4rem;
+  .single-post p {
+    line-height: 1.6;
   }
-  .skills .shortimage {
-    width: 100%;
-    height: 75vh;
-    border-radius: 20px;
-  }
-  .skill-box .shortimage img {
-    width: 100%;
-    height: 100vh;
-  }
-  .skills .skill-box {
-    padding: 4rem;
-  }
-  .reachOnMe {
-    flex-direction: column;
-    gap: 2.8rem;
+  .single-post-thumb {
+    margin-top: 1rem;
   }
 }
 
@@ -292,7 +315,6 @@ p {
 
 .reachOnMe {
   background-color: #261827;
-
   display: flex;
   justify-content: space-between;
   padding: 2.1rem 4.2rem;
@@ -311,6 +333,7 @@ p {
   gap: 2rem;
   align-items: center;
 }
+
 .icon {
   /* background-color: yellow; */
   padding: 0.5rem;
@@ -374,6 +397,19 @@ textarea::placeholder {
   float: inline-start;
 }
 
+@media (max-width: 525px) {
+  .contact,
+  .findmeon {
+    gap: 1rem;
+  }
+  .icon i {
+    font-size: 10px;
+  }
+  .through h5 {
+    font-size: 0.8rem;
+  }
+}
+
 /*-------------------- FOOTER---------------------- */
 
 .footer {
@@ -394,6 +430,37 @@ textarea::placeholder {
 @media (max-width: 895px) {
   h1 {
     font-size: 1.4rem;
+  }
+  .about h3 {
+    font-size: 1rem;
+  }
+  .about p {
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+  }
+  .blog {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .skills {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .skills .shortimage {
+    width: 100%;
+    height: 75vh;
+    border-radius: 20px;
+  }
+  .skill-box .shortimage img {
+    width: 100%;
+    height: 100vh;
+  }
+  .skills .skill-box {
+    padding: 4rem;
+  }
+  .reachOnMe {
+    flex-direction: column;
+    gap: 2.8rem;
   }
   .picture img {
     padding: 2rem;
@@ -433,5 +500,14 @@ textarea::placeholder {
   .home .text button {
     width: 50%;
     font-size: 0.5rem;
+  }
+  .icon i {
+    font-size: 30px;
+  }
+  .through label {
+    font-size: 0.7rem;
+  }
+  .through h5 {
+    font-size: 1rem;
   }
 }
