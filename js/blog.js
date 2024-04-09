@@ -31,7 +31,7 @@ function AllBlogs() {
                           <button  type="submit" id="editComment">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
                       </div>
                       <div class="deleteIcon">
-                          <button  type="submit" id="deleteComment">Delete<i class="fas fa-trash-alt" id="delete"></i></button>
+                          <button  type="submit" onclick="deleteBlog('${blog._id}')">Delete<i class="fas fa-trash-alt" id="delete"></i></button>
                       </div>
                   </div>
               </div>
@@ -98,35 +98,53 @@ blogform.addEventListener("submit", (e) => {
     .catch((message) => alert(message));
 });
 
-document.addEventListener("click", (event) => {
-  const deleteButton = event.target.closest(".deleteButton");
-  if (deleteButton) {
+function deleteBlog(blogId) {
+  if (confirm("Are you sure you want to delete this blog post?")) {
+    fetch(
+      `https://my-brand-api-arwz.onrender.com/api/blog/posts/removeblog/${blogId}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete the blog post");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert(data.message);
+      })
+      .catch((error) => {
+        console.error("Error deleting blog post:", error);
+        alert("Error deleting blog post. Please try again later.");
+      });
+  }
+}
+
+function populateForm(blog) {
+  blog.id = document.getElementById("blogId").value;
+  blog.title = document.getElementById("blogTitle").value = blog.title;
+  blog.category = document.getElementById("blogCategory").value;
+  blog.description = document.getElementById("blogContent").value;
+  blog.image = document.getElementById("thumb").value;
+}
+
+editIcons.forEach((editIcon) => {
+  editIcon.addEventListener("click", (event) => {
     event.stopPropagation();
 
-    const blogId = deleteButton.closest(".post").querySelector(".blogId").value;
+    const blogContainer = event.target.closest(".post");
+    const blogId = blogContainer.querySelector(".blogId").value;
 
-    if (confirm("Are you sure you want to delete this blog post?")) {
-      fetch(
-        `https://my-brand-api-arwz.onrender.com/api/blog/posts/removeblog/${blogId}`,
-        {
-          method: "DELETE",
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to delete the blog post");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          alert(data.message);
-
-          deleteButton.closest(".post").remove();
-        })
-        .catch((error) => {
-          console.error("Error deleting blog post:", error);
-          alert("Error deleting blog post. Please try again later.");
-        });
-    }
-  }
+    const blog = {
+      id: blogId,
+      title: blogContainer.querySelector(".category-btn").textContent,
+      category: blogContainer.querySelector(".post-title").textContent,
+      description: blogContainer.querySelector(".post-body").textContent,
+      image: blogContainer.querySelector(".post-thumb").textContent,
+    };
+    populateForm(blog);
+    dialog.showModal();
+  });
 });
