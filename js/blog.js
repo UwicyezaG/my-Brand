@@ -1,6 +1,59 @@
+function AllBlogs() {
+  const blogContainer = document.getElementById("blogContainer");
+
+  fetch("https://my-brand-api-arwz.onrender.com/api/blog/posts/allblog", {})
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((blogs) => {
+      const blogHTML = blogs
+        ?.map((blog) => {
+          return `
+          <article class="post">
+          <input type="hidden" class="blogId" value="${blog.id}">
+          <div class="post-thumb">
+              <img src="  ${blog.image}" alt="">
+              <img src="images/Illustration for cryptocurrency.jpeg" alt="">
+          </div>
+          <div class="post-info">
+              <div class="category-btn" id="enter">${blog.title}</div>
+              <h3 class="post-title"><a href="post.html">${blog.category}</a></h3>
+              <p class="post-body">${blog.description}</p>
+              <div class="post-profile">
+                  <div class="commentIcon" style="display: none;">
+                      <button type="submit" id="theComment"><i class="fas fa-comment" id="comment"></i>Comments</button>
+                  </div>
+                  <div class="faire">
+                      <div class="editIcon">
+                          <button  type="submit" id="editComment">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
+                      </div>
+                      <div class="deleteIcon">
+                          <button  type="submit" onclick="deleteBlog('${blog._id}')">Delete<i class="fas fa-trash-alt" id="delete"></i></button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </article>
+                `;
+        })
+        .join("");
+
+      blogContainer.innerHTML = blogHTML;
+      console.log(blogs);
+    })
+    .catch((error) => {
+      console.error("Error fetching blogs:", error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", AllBlogs());
+
 const dialog = document.querySelector("dialog");
-const showButton = document.querySelector("dialog + button");
-const cancelButton = document.querySelector("dialog");
+const showButton = document.querySelector("#addNewButton");
+const cancelButton = document.querySelector("#cancelButton");
 const blogform = document.getElementById("newblog");
 
 blogform.addEventListener("click", (event) => {
@@ -24,7 +77,7 @@ blogform.addEventListener("submit", (e) => {
   const description = document.getElementById("blogContent").value;
 
   const data = { title, category, image, description };
-
+  console.log(image);
   fetch("https://my-brand-api-arwz.onrender.com/api/blog/posts/create", {
     method: "POST",
     headers: {
@@ -45,81 +98,53 @@ blogform.addEventListener("submit", (e) => {
     .catch((message) => alert(message));
 });
 
-function AllBlogs() {
-  const blogContainer = document.getElementById("blogContainer");
-
-  fetch("https://my-brand-api-arwz.onrender.com/api/blog/posts/allblog", {})
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+function deleteBlog(blogId) {
+  if (confirm("Are you sure you want to delete this blog post?")) {
+    fetch(
+      `https://my-brand-api-arwz.onrender.com/api/blog/posts/removeblog/${blogId}`,
+      {
+        method: "DELETE",
       }
-      return response.json();
-    })
-    .then((blogs) => {
-      const blogHTML = blogs
-        ?.map((blog) => {
-          return `
-                <article class="post">
-                <div class="post-thumb">
-                ${blog.image}
-                    // <img src="images/Illustration for cryptocurrency.jpeg" alt="">
-                </div>
-                <div class="post-info">
-                    <div class="category-btn" id="enter">${blog.title}</div>
-                    <h3 class="post-title"><a href="post.html">${blog.category}</a></h3>
-                    <p class="post-body">
-                    ${blog.description}
-                    </p>
-                    <div class="post-profile">
-                         <div class="commenIcon">
-                              <i class="fas fa-comment" id="comment"></i>
-                         </div>
-                      <div class="faire">
-                         <div class="editIcon">
-                              <i class="fas fa-pencil-alt" id="edit"></i>
-                         </div>
-                         <div class="deleteIcon">
-                             <i class="fas fa-trash-alt" id="delete"></i>
-                         </div>
-                      </div>
-                    </div>
-                </div>
-            </article>
-                `;
-        })
-        .join("");
-
-      blogContainer.innerHTML = blogHTML;
-      console.log(blogs);
-    })
-    .catch((error) => {
-      console.error("Error fetching blogs:", error);
-    });
-}
-document.addEventListener("DOMContentLoaded", AllBlogs());
-
-function editBlog(blogId) {
-  const blog = document.querySelector(`.blog[data-id="${blogId}"]`);
-  if (blog) {
-      const title = blog.querySelector('.blogTitle').textContent;
-      const category = blog.querySelector('.blogCategory').textContent;
-      const content = blog.querySelector('.blogContent').textContent;
-
-      
-      blogIdInput.value = blogId;
-      blogTitleInput.value = title;
-      blogCategoryInput.value = category;
-      blogContentInput.value = content;
-
-      openDialog('Edit Post');
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete the blog post");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert(data.message);
+      })
+      .catch((error) => {
+        console.error("Error deleting blog post:", error);
+        alert("Error deleting blog post. Please try again later.");
+      });
   }
 }
 
-// Add event listener to blog edit icon
-blogContainer.addEventListener('click', function(event) {
-  const editIcon = event.target.closest('.edit-icon');
-  if (editIcon) {
-      const blogId = editIcon.dataset.blogId;
-      editBlog(blogId);
-  }
+function populateForm(blog) {
+  blog.id = document.getElementById("blogId").value;
+  blog.title = document.getElementById("blogTitle").value = blog.title;
+  blog.category = document.getElementById("blogCategory").value;
+  blog.description = document.getElementById("blogContent").value;
+  blog.image = document.getElementById("thumb").value;
+}
+
+editIcons.forEach((editIcon) => {
+  editIcon.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    const blogContainer = event.target.closest(".post");
+    const blogId = blogContainer.querySelector(".blogId").value;
+
+    const blog = {
+      id: blogId,
+      title: blogContainer.querySelector(".category-btn").textContent,
+      category: blogContainer.querySelector(".post-title").textContent,
+      description: blogContainer.querySelector(".post-body").textContent,
+      image: blogContainer.querySelector(".post-thumb").textContent,
+    };
+    populateForm(blog);
+    dialog.showModal();
+  });
 });
