@@ -28,7 +28,7 @@ function AllBlogs() {
                   </div>
                   <div class="faire">
                       <div class="editIcon">
-                          <button  type="submit" id="editComment">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
+                      <button type="button" class="editButton" onclick="editBlog('${blog._id}', '${blog.title}', '${blog.category}', '${blog.image}', '${blog.description}')">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
                       </div>
                       <div class="deleteIcon">
                           <button  type="submit" onclick="deleteBlog('${blog._id}')">Delete<i class="fas fa-trash-alt" id="delete"></i></button>
@@ -91,6 +91,7 @@ blogform.addEventListener("submit", (e) => {
     .then((data) => {
       if (data.ok) {
         alert(data.message);
+        dialog.close();
       } else {
         alert(data.message);
       }
@@ -122,29 +123,66 @@ function deleteBlog(blogId) {
   }
 }
 
-function populateForm(blog) {
-  blog.id = document.getElementById("blogId").value;
-  blog.title = document.getElementById("blogTitle").value = blog.title;
-  blog.category = document.getElementById("blogCategory").value;
-  blog.description = document.getElementById("blogContent").value;
-  blog.image = document.getElementById("thumb").value;
-}
 
-editIcons.forEach((editIcon) => {
-  editIcon.addEventListener("click", (event) => {
-    event.stopPropagation();
 
-    const blogContainer = event.target.closest(".post");
-    const blogId = blogContainer.querySelector(".blogId").value;
-
-    const blog = {
-      id: blogId,
-      title: blogContainer.querySelector(".category-btn").textContent,
-      category: blogContainer.querySelector(".post-title").textContent,
-      description: blogContainer.querySelector(".post-body").textContent,
-      image: blogContainer.querySelector(".post-thumb").textContent,
-    };
-    populateForm(blog);
-    dialog.showModal();
-  });
+function editBlog(blogId, title, category, image, description) {
+  const cancelEditButton = document.getElementById("cancelEditButton");
+  cancelEditButton.addEventListener("click", () => {
+     const editDialog = document.getElementById("editDialog");
+     editDialog.close();
 });
+
+  document.getElementById("editBlogTitle").value = title;
+  document.getElementById("editBlogCategory").value = category;
+  document.getElementById("editThumb").value = image;
+  document.getElementById("editBlogContent").value = description;
+
+  const editDialog = document.getElementById("editDialog");
+  editDialog.showModal();
+
+  const editForm = document.getElementById("editBlogForm");
+  editForm.onsubmit = function (event) {
+    event.preventDefault();
+
+    const newTitle = document.getElementById("editBlogTitle").value;
+    const newCategory = document.getElementById("editBlogCategory").value;
+    const newImage = document.getElementById("editThumb").value;
+    const newDescription = document.getElementById("editBlogContent").value;
+
+    const data = {
+      title: newTitle,
+      category: newCategory,
+      image: newImage,
+      description: newDescription,
+    };
+    fetch(
+      `https://my-brand-api-arwz.onrender.com/api/blog/posts/updateblog/${blogId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update the blog post");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.message){
+          alert(data.message);
+        }else{
+          alert("Blog is successfully updated")
+        }
+        editDialog.close();
+        AllBlogs();
+      })
+      .catch((error) => {
+        console.error("Error updating blog post:", error);
+        alert("Error updating blog post. Please try again later.");
+      });
+  };
+}

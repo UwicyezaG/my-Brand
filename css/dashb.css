@@ -218,7 +218,7 @@ td:nth-child(1) {
 ::backdrop {
   background-color: black;
 }
-#dialog {
+#dialog, .dialog{
   background-color: rgb(37, 2, 37);
   width: 100%;
   height: 100%;

@@ -109,6 +109,27 @@
                           </form>
                         </div>
                 </dialog>
+
+                <dialog id="editDialog" class="dialog">
+                    <div class="form-section-container">
+                    <form id="editBlogForm">
+                      
+                        <input type="text" id="editBlogTitle" class="form-control" placeholder="Title" required>
+                        <input type="text" id="editBlogCategory" class="form-control" placeholder="Category" required>
+                        <input type="text" id="editThumb" class="form-control" placeholder="Image URL" required>
+                        
+                        <textarea id="editBlogContent" class="form-control" rows="4" placeholder="Description" required></textarea>
+                    
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" id="cancelEditButton" class="btn btn-secondary">Cancel</button>
+                      </div>
+                    </form>
+                </div>
+                  </dialog>
+                  
+                  
+                  
                 <button id="addNewButton">Add New</button>
             </div>
             
