@@ -424,7 +424,7 @@ select {
   }
 }
 /* --------------------------commentDialog--------------------- */
-
+/* 
 ::backdrop {
   background-color: black;
 }
@@ -514,7 +514,7 @@ select {
 .comment-container button.abled {
   background: blue;
   color: white;
-}
+} */
 /* ---------------------------- Start  POST ------------------- */
 .post-container {
   display: grid;

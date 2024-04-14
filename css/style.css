@@ -511,3 +511,53 @@ textarea::placeholder {
     font-size: 1rem;
   }
 }
+
+::backdrop {
+  background: radial-gradient(#410536,#4e0d42);
+}
+#commentDialog{
+  color: white;
+  background-color: rgb(37, 2, 37);
+  width: 100%;
+  height: 100%;
+  padding: 1rem 10rem;
+  z-index: 2;
+  margin: 1rem 1rem;
+  border-radius: 0.3rem;
+  border: none;
+ 
+  /* display: none;
+  margin: 2rem;
+  width: 100%;
+  background: radial-gradient(#520843 18%,#410536);
+  color: white;
+  padding: 4rem; 
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  border-style: hidden; */
+}
+#commentDialog .Comframe{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-top: 5rem;
+  padding: 3rem 4rem;
+  background: radial-gradient(#38022d 18%,#33002a);
+}
+#commentDialog form input{
+  color: white;
+}
+#commentDialog form input, #commentDialog form input{
+  background-color: rgb(199, 184, 184);
+  border: none;
+}
+#commentDialog form button{
+  width: 20%;
+  text-align: center;
+}
+#commentDialog form button:hover{
+  background-color: #ca1baa;
+}

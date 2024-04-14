@@ -1,0 +1,63 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+  }
+  body{
+    background: radial-gradient(#410536,#4e0d42);
+    padding: 0rem 2rem;
+  }
+  
+  /* Style for the entire post frame */
+  .PostFrame {
+    background-color: rgb(37, 2, 37);
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Style for the post title */
+  .postTitle {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for the post category */
+  .postCategory {
+    text-align: center;
+    font-size: 14px;
+    font-weight: lighter;
+    color: rgb(206, 199, 199); /* Adjust color as needed */
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the post image */
+  .postImage {
+
+    margin-bottom: 20px;
+  }
+  
+  .postImage img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Style for the post description */
+  .postDescription p {
+    line-height: 2;
+    color: white; /* Adjust color as needed */
+  }
+  
+  #commentDialog form button{
+    width: 20%;
+    text-align: center;
+  }
+  #commentDialog form button:hover{
+    background-color: #ca1baa;
+  }
+  
