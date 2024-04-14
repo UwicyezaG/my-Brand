@@ -21,12 +21,17 @@ function AllBlogs() {
                 </div>
                 <div class="post-info">
                   <div class="category-btn" id="enter">${blog.title}</div>
-                  <h3 class="post-title"><a href="post.html">${blog.category}</a></h3>
+                  <h3 class="post-title">${blog.category}</a></h3>
                   <p class="post-body">${blog.description}</p>
-                  <div class="post-profile">
-                    <div class="commentIcon">
-                    <button type="submit" id="theComment"><i class="fas fa-comment" id="comment"></i> Comments</button>
-                    </div>
+                <div class="post-profile">
+                  <div class="commentIcon">
+                  <button type="button" class="commentButton" onclick="openNewCommentDialog('${blog.id}')">
+                    <i class="fas fa-comment"></i> Comments
+                  </button>
+                 </div>
+
+                  <button><a class="readButton" href="post.html?id=${blog._id}">Read</a></button>
+                
                     <div class="faire">
                       <div class="editIcon" style="display: none;">
                       <button type="submit" id="editComment">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
@@ -186,3 +191,82 @@ document
       });
     }
   });
+
+
+  // POST =======================
+  // Function to fetch and display a single blog post
+  
+async function displaySingleBlogPost() {
+  console.log("uwicyezaaaaaaaaaaaaaaa")
+        const urlParams = new URLSearchParams(window.location.search);
+      const blogId = urlParams.get('id');
+
+  try {
+      // Get the blog ID from the URL parameter
+
+      const response = await fetch(`https://my-brand-api-arwz.onrender.com/api/blog/posts/singleblog/${blogId}`);
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      const blogPost = await response.json();
+
+      // Populate the HTML elements with the retrieved data
+      const postTitleElement = document.querySelector('.postTitle');
+      const postImageElement = document.querySelector('.postImage img');
+      const postCategoryElement = document.querySelector('.postCategory');
+      const postBodyElement = document.querySelector('.postBody');
+
+      postTitleElement.textContent = blogPost.title;
+      postImageElement.src = blogPost.image;
+      postCategoryElement.textContent = blogPost.category;
+      postBodyElement.textContent = blogPost.description;
+  } catch (error) {
+      console.error('Error fetching and displaying single blog post:', error);
+  }
+}
+
+// Call the function when the DOM content is loaded
+// document.addEventListener('DOMContentLoaded', displaySingleBlogPost);
+
+
+// COMMENT----------------
+
+
+function openNewCommentDialog(blogId) {
+  const commentDialog = document.getElementById("commentDialog");
+  const closeDialogButton = document.getElementById("closeDialog");
+
+  closeDialogButton.addEventListener("click", () => {
+    commentDialog.close();
+  });
+
+  commentDialog.showModal();
+
+  const commentForm = document.getElementById("commentForm");
+  commentForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const commentContent = document.getElementById("commentContent").value;
+
+    const data = { name: username, content: commentContent };
+
+    fetch("https://my-brand-api-arwz.onrender.com/api/blog/posts/comment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "You have successfully commented") {
+          alert("Comment success!");
+          commentDialog.close();
+        } else {
+          alert("Comment failed!");
+        }
+      })
+      .catch((error) => console.error("Error commenting:", error));
+  });
+}

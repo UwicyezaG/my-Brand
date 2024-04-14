@@ -23,9 +23,12 @@ function AllBlogs() {
               <h3 class="post-title"><a href="post.html">${blog.category}</a></h3>
               <p class="post-body">${blog.description}</p>
               <div class="post-profile">
-                  <div class="commentIcon" style="display: none;">
-                      <button type="submit" id="theComment"><i class="fas fa-comment" id="comment"></i>Comments</button>
-                  </div>
+                <div class="commentIcon" style="display: none;">>
+                  <button type="button" class="commentButton" onclick="openNewCommentDialog('${blog.id}')">
+                  <i class="fas fa-comment"></i> Comments
+                  </button>
+               </div>
+            
                   <div class="faire">
                       <div class="editIcon">
                       <button type="button" class="editButton" onclick="editBlog('${blog._id}', '${blog.title}', '${blog.category}', '${blog.image}', '${blog.description}')">Edit<i class="fas fa-pencil-alt" id="edit"></i></button>
@@ -186,3 +189,4 @@ function editBlog(blogId, title, category, image, description) {
       });
   };
 }
+
